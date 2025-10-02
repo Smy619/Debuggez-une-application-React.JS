@@ -1,7 +1,11 @@
-import { fireEvent, render, screen ,within} from "@testing-library/react";
+import { fireEvent, render, screen, within, act } from "@testing-library/react";
 import DataContext from "../../contexts/DataContext";
 import Home from "./index";
 import events from "../../data/events.json";
+import Slider from "../../containers/Slider";
+
+const providerValue = { data: events };
+const providerValueWithFocus = { data: { focus: events.events } };
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -32,9 +36,33 @@ describe("When Form is created", () => {
 });
 
 describe("When a page is created", () => {
+  it("changes image after a few seconds in the carousel", async () => {
+    jest.useFakeTimers();
+
+    render(
+      <DataContext.Provider value={providerValueWithFocus}>
+        <Slider />
+      </DataContext.Provider>
+    );
+
+    // Get all images inside the carousel
+    const images = screen.getAllByRole("img");
+
+    // At first render → the first image should be visible
+    expect(images[0]).toBeVisible();
+
+    // Fast-forward time by 5 seconds (AUTOPLAY_MS)
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
+
+    // After advancing time → the second image should now be visible
+    const imagesAfter = screen.getAllByRole("img");
+    expect(imagesAfter[1]).toBeVisible();
+  });
   it("a list of events is displayed", async () => {
     render(
-      <DataContext.Provider value={{ data: events }}>
+      <DataContext.Provider value={providerValue}>
         <Home />
       </DataContext.Provider>
     );
@@ -46,7 +74,7 @@ describe("When a page is created", () => {
   });
   it("a list a people is displayed", () => {
     render(
-      <DataContext.Provider value={{ data: events }}>
+      <DataContext.Provider value={providerValue}>
         <Home />
       </DataContext.Provider>
     );
@@ -56,7 +84,7 @@ describe("When a page is created", () => {
   // target the footer specifically
   it("a footer is displayed", async () => {
     render(
-      <DataContext.Provider value={{ data: events }}>
+      <DataContext.Provider value={providerValue}>
         <Home />
       </DataContext.Provider>
     );
@@ -64,9 +92,21 @@ describe("When a page is created", () => {
       await screen.findByText("Notre dernière prestation")
     ).toBeInTheDocument();
   });
+  it("displays envent details in modal when an envent is clicked", async () => {
+    render(
+      <DataContext.Provider value={providerValue}>
+        <Home />
+      </DataContext.Provider>
+    );
+    const eventCard = await screen.findByText(events.events[0].title);
+    fireEvent.click(eventCard);
+    expect(
+      await screen.findByText(events.events[0].description)
+    ).toBeInTheDocument();
+  });
   it("an event card, with the last event, is displayed", async () => {
     render(
-      <DataContext.Provider value={{ data: events }}>
+      <DataContext.Provider value={providerValue}>
         <Home />
       </DataContext.Provider>
     );

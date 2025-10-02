@@ -104,7 +104,7 @@ const Page = () => {
           {Array.isArray(events) && events.length > 0 ? (
             (() => {
               const latestEvent = [...events].sort(
-                (a, b) => new Date(b.date) - new Date(a.date)
+               (a, b) => new Date(b.date) - new Date(a.date)
               )[0];
               return (
                 <EventCard
