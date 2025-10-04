@@ -43,6 +43,9 @@ Then open your browser at:
 👩‍💻 Author
 Sunting (Solène)
 🎨 Front-End Integrator — OpenClassrooms Training Program
+
 📍 Based in France
+
 📧 solene.s2025@gmail.com
+
 🌐 https://github.com/Smy619
