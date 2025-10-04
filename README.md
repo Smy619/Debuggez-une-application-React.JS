@@ -19,7 +19,7 @@ The goal was to analyze an existing React app, identify display and logic issues
 - ⚛️ **React 18**
 - 🟨 **JavaScript (ES6)**
 - 🎨 **CSS**
-- 🌐 **Node.js v20.19.4
+- 🌐 Node.js v20.19.4
 - 📦 **Yarn**
 
 ---
