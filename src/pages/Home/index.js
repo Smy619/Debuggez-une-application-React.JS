@@ -1,20 +1,22 @@
+import { useState } from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
 import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
-
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const { data } = useData();
-  const events = data?.events || [];
+  const { latestEvent } = useData();
+
+  // eslint-disable-next-line no-unused-vars
+  const [isOpened, setIsOpened] = useState(false);
+  
   return (
     <>
       <header>
@@ -95,18 +97,13 @@ const Page = () => {
         </section>
         <div className="FormContainer" id="contact">
           <h2 className="Title">Contact</h2>
-          <Form onSuccess={() => null} onError={() => null} />
+          <Form onSuccess={() => setIsOpened(true)} onError={() => null} />
         </div>
       </main>
       <footer className="row">
         <div className="col presta">
           <h3>Notre dernière prestation</h3>
-          {Array.isArray(events) && events.length > 0 ? (
-            (() => {
-              const latestEvent = [...events].sort(
-               (a, b) => new Date(b.date) - new Date(a.date)
-              )[0];
-              return (
+          {latestEvent ? (
                 <EventCard
                   key={latestEvent.id}
                   imageSrc={latestEvent.cover}
@@ -114,9 +111,7 @@ const Page = () => {
                   date={new Date(latestEvent.date)}
                   small
                   label={latestEvent.type || "Autre"}
-                />
-              );
-            })()
+              />
           ) : (
             <p>Aucune prestation disponible</p>
           )}

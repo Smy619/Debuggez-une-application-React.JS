@@ -72,12 +72,22 @@ const EventList = () => {
       </div>
       {filteredByType.length > 0 && (
         <div className="Pagination" aria-label="Pagination des événements">
-          {Array.from({ length: pageNumber }).map((_, n) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
-              {n + 1}
-            </a>
-          ))}
+          {Array.from({ length: pageNumber }).map((_, index) => {
+            const pageId = `page-${index + 1}`;
+            return (
+              <button
+                key={pageId}
+                type="button"
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCurrentPage(index + 1);
+                }}
+              >
+                {index + 1}
+              </button>
+            );
+          })}
         </div>
       )}
     </>

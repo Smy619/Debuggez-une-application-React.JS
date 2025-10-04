@@ -38,13 +38,20 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     if (data) return;
     getData();
-  });
+  }, [data, getData]);
+
+  const latestEvent =data?.events?.length
+    ?[...data.events].sort(
+       (a, b) => new Date(b.date) - new Date(a.date)
+    )[0]
+    : null;
 
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
+        latestEvent,
         error,
       }}
     >
