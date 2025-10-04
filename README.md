@@ -27,19 +27,15 @@ The goal was to analyze an existing React app, identify display and logic issues
 ## 🚀 Installation
 
 1. **Clone the project**
-   ```bash
+
    git clone https://github.com/Smy619/Debuggez-une-application-React.JS.git
    cd Debuggez-une-application-React.JS
+   
 Install dependencies
-
-bash
-复制代码
 yarn install
+
 💻 Run the App
 Start the development server:
-
-bash
-复制代码
 yarn start
 Then open your browser at:
 👉 http://localhost:3000
