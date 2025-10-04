@@ -41,7 +41,9 @@ Then open your browser at:
 👉 http://localhost:3000
 
 👩‍💻 Author
+
 Sunting (Solène)
+
 🎨 Front-End Integrator — OpenClassrooms Training Program
 
 📍 Based in France
