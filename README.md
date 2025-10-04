@@ -29,6 +29,7 @@ The goal was to analyze an existing React app, identify display and logic issues
 1. **Clone the project**
 
    git clone https://github.com/Smy619/Debuggez-une-application-React.JS.git
+   
    cd Debuggez-une-application-React.JS
    
 Install dependencies
