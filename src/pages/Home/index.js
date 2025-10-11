@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useMemo } from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -12,7 +12,14 @@ import Form from "../../containers/Form";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const { latestEvent } = useData();
+  const { data } = useData();
+
+  const latestEvent = useMemo(() => {
+  const events = data?.events || [];
+  if (!events.length) return null;
+ 
+  return [...events].sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+}, [data]);
 
   // eslint-disable-next-line no-unused-vars
   const [isOpened, setIsOpened] = useState(false);
@@ -100,10 +107,12 @@ const Page = () => {
           <Form onSuccess={() => setIsOpened(true)} onError={() => null} />
         </div>
       </main>
-      <footer className="row">
+      <footer className="row" role="contentinfo">
         <div className="col presta">
           <h3>Notre dernière prestation</h3>
           {latestEvent ? (
+            <>
+             <p>Dernier évènement :{latestEvent.title}</p>
                 <EventCard
                   key={latestEvent.id}
                   imageSrc={latestEvent.cover}
@@ -112,6 +121,7 @@ const Page = () => {
                   small
                   label={latestEvent.type || "Autre"}
               />
+            </>
           ) : (
             <p>Aucune prestation disponible</p>
           )}

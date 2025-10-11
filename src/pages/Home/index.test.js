@@ -10,13 +10,10 @@ const providerValueWithFocus = { data: { focus: events.events } };
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
     render(<Home />);
-    // Check if all form fields are rendered
-    expect(await screen.findByText("Email")).toBeInTheDocument();
-    expect(await screen.findByText("Nom")).toBeInTheDocument();
-    expect(await screen.findByText("Prénom")).toBeInTheDocument();
-    expect(
-      await screen.findByText("Personel / Entreprise")
-    ).toBeInTheDocument();
+    await screen.findByText("Email");
+    await screen.findByText("Nom");
+    await screen.findByText("Prénom");
+    await screen.findByText("Personel / Entreprise");
   });
 
   describe("and a click is triggered on the submit button", () => {
@@ -29,11 +26,27 @@ describe("When Form is created", () => {
           bubbles: true,
         })
       );
-      expect(await screen.findByText("En cours")).toBeInTheDocument();
-      expect(await screen.findByText("Message envoyé !")).toBeInTheDocument();
+      await screen.findByText("En cours");
+      await screen.findByText("Message envoyé !");
     });
   });
 });
+
+describe("When a page is created", () => {
+  it("a list of events is displayed", () => {
+    // to implement
+  })
+  it("a list a people is displayed", () => {
+    // to implement
+  })
+  it("a footer is displayed", () => {
+    // to implement
+  })
+  it("an event card, with the last event, is displayed", () => {
+    // to implement
+  })
+});
+
 
 describe("When a page is created", () => {
   it("changes image after a few seconds in the carousel", async () => {
